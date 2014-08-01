@@ -453,7 +453,7 @@ installall)
     installmemcached
 ;;
 compresslnmp)
-    cd ${currdir}/..;[ -f lnmp.tar.gz ] && rm -f lnmp.tar.gz ;tar -cvzf lnmp.tar.gz lnmp/scripts lnmp/conf lnmp/soft/*gz lnmp/lnmp_install.sh lnmp/READEME
+    cd ${currdir}/..;[ -f lnmp.tar.gz ] && rm -f lnmp.tar.gz ;tar -cvzf lnmp.tar.gz lnmp/scripts lnmp/conf lnmp/soft/*gz lnmp/lnmp_install.sh lnmp/README.md
     echo -e "\n\npath: $(pwd)/lnmp.tar.gz"
 ;;
 *)
