@@ -43,6 +43,9 @@ installroot=/usr/local
 #mysql defalut password 123456
 mysqlpd=TclcqmMTMDJdOonFNH5x
 
+#source alias
+shopt -s expand_aliases
+. ~/.bashrc
 
 #####################code#####################
 #log_success_msg "zaza test"
@@ -226,7 +229,7 @@ function installmysql(){
         id -u mysql &>/dev/null || useradd mysql -M -s /bin/false
         cd ${installroot}/mysql
         #chown -R mysql:mysql ./data
-        scripts/mysql_install_db --user=mysql
+        ${installroot}/mysql/scripts/mysql_install_db --user=mysql
         cp -f support-files/my-small.cnf /etc/my.cnf
         install -c -o root -g root -m 744 support-files/mysql.server /etc/init.d/mysqld
         chkconfig --level 345 mysqld on 
