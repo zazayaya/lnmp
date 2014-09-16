@@ -157,7 +157,6 @@ function makeinstall(){
     return 0 
 }
 
-
 ####install package
 ##install nginx
 function installnginx(){
