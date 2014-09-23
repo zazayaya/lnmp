@@ -252,7 +252,7 @@ function installmysql(){
 ##install php
 function installphp(){
     #requirement
-    [ ! -d ${installroot}/mysql ] && log_failure_msg "install php need mysql!!" && return 1
+    #[ ! -d ${installroot}/mysql ] && log_failure_msg "install php need mysql!!" && return 1
     yum -y install pcre-devel.`uname -m` libcurl-devel.`uname -m` libxml2-devel.`uname -m` \
     libxslt-devel.`uname -m` xmlrpc-c-devel.`uname -m` gmp-devel.`uname -m` \
     openssl-devel.`uname -m` zlib-devel.`uname -m` bzip2-devel.`uname -m` \
