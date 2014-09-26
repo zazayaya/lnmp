@@ -309,7 +309,7 @@ function installphp(){
     --with-freetype-dir=${installroot}/freetype --with-iconv \
     --enable-sockets --enable-mbstring --with-xmlrpc \
     --with-gmp --with-fpm-user=www-data --with-fpm-group=www-data \
-    --with-xpm-dir=/usr/lib64/ --enable-opcache
+    --with-xpm-dir=/usr/lib64/ --enable-opcache --enable-bcmath
 
     if [ $? -eq 0 ];then
         makeinstall make
@@ -407,7 +407,7 @@ ${installroot}/php/lib/php.ini
         log_success_msg "install php extension: redis"
 
         #check extension
-        extensions="curl bz2 gd gettext gmp iconv json libxml mbstring memcache mysql mysqli openssl pcre redis sockets xml xmlrpc xsl xxtea zlib OPcache"
+        extensions="curl bz2 gd gettext gmp iconv json libxml mbstring memcache mysql mysqli openssl pcre redis sockets xml xmlrpc xsl xxtea zlib OPcache bcmath"
         for ext in ${extensions};do
             ${installroot}/php/sbin/php-fpm -m | grep ${ext} >/dev/null || log_failure_msg "php extension not exist: ${ext}"
         done
