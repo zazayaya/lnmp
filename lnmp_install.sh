@@ -46,6 +46,7 @@ mysqlpd=TclcqmMTMDJdOonFNH5x
 #source alias
 shopt -s expand_aliases
 . ~/.bashrc
+alias cp=cp
 
 #####################code#####################
 #log_success_msg "zaza test"
