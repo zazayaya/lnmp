@@ -371,7 +371,7 @@ ${installroot}/php/lib/php.ini
         sed -i '/;opcache.memory_consumption=64/a opcache.memory_consumption=128' ${installroot}/php/lib/php.ini
         sed -i '/;opcache.interned_strings_buffer=4/a opcache.interned_strings_buffer=8' ${installroot}/php/lib/php.ini
         sed -i '/;opcache.max_accelerated_files=2000/a opcache.max_accelerated_files=4000' ${installroot}/php/lib/php.ini
-        sed -i '/;opcache.revalidate_freq=2/a opcache.revalidate_freq=60' ${installroot}/php/lib/php.ini
+        sed -i '/;opcache.revalidate_freq=2/a opcache.revalidate_freq=2' ${installroot}/php/lib/php.ini
         sed -i '/;opcache.fast_shutdown=0/a opcache.fast_shutdown=1' ${installroot}/php/lib/php.ini
         #cli use for debug
         #sed -i '/;opcache.enable_cli=0/a opcache.enable_cli=1' ${installroot}/php/lib/php.ini
