@@ -10,7 +10,7 @@ auto install lnmp
 ./lnmp_install.sh {installnginx|installmysql|installphp|installmemcached|installall|compresslnmp}
 
 #nohup install
-nohup ./lnmp_install.sh installall
+nohup ./lnmp_install.sh installall &
 
 #watch log
 tailf install.log
