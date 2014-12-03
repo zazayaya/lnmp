@@ -230,7 +230,8 @@ function installmysql(){
         cd ${installroot}/mysql
         #chown -R mysql:mysql ./data
         ${installroot}/mysql/scripts/mysql_install_db --user=mysql
-        cp -f support-files/my-small.cnf /etc/my.cnf
+        cp -f support-files/my-medium.cnf /etc/my.cnf
+		sed -i.bak '/\[mysql\]/a prompt=mysql(\\\\u \\\\d)>' /etc/my.cnf
         install -c -o root -g root -m 744 support-files/mysql.server /etc/init.d/mysqld
         chkconfig --level 345 mysqld on 
         /etc/init.d/mysqld start 
