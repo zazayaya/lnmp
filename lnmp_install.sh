@@ -284,7 +284,7 @@ function installphp(){
 
     #freetype
     uncomfile $(getfiles freetype)
-    makeinstall ./configure --prefix=${installroot}/freetype
+    makeinstall ./configure --prefix=${installroot}/freetype LIBPNG_LIBS=-L${installroot}/png/lib CFLAGS=-I${installroot}/png/include
     if [ $? -eq 0 ];then
         makeinstall make
         makeinstall make install
