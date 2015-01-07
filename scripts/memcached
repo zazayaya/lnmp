@@ -6,46 +6,42 @@
 # chkconfig --add memcached
 # chkconfig --level 35 memcached on
 #
-# Written by lei
-#
 # chkconfig: - 80 12
 # description: Distributed memory caching daemon
 #
-# processname: memcached
-# config: /usr/local/memcached/my.conf
  
 source /etc/rc.d/init.d/functions
  
 ### Default variables
 PORT="11211"
 USER="www-data"
-MAXCONN="1024"
-CACHESIZE="64"
+MAXCONN="2048"
+CACHESIZE="2048"
 OPTIONS=""
-SYSCONFIG="/usr/local/memcached/my.conf"
- 
-### Read configuration
-[ -r "$SYSCONFIG" ] && source "$SYSCONFIG"
  
 RETVAL=0
+PIDFILE=/var/run/memcached/memcached.$PORT.pid
 prog="/usr/local/memcached/bin/memcached"
-desc="Distributed memory caching"
+desc="`basename $prog` port: ${PORT}"
  
+[ -d /var/run/memcached ] || mkdir /var/run/memcached
+chown ${USER}:root /var/run/memcached
+
 start() {
-    echo -n $"Starting $desc ($prog): "
-    daemon $prog -d -p $PORT -u $USER -c $MAXCONN -m $CACHESIZE $OPTIONS
+    echo -n $"Starting $desc"
+    daemon $prog -d -p $PORT -u $USER -c $MAXCONN -m $CACHESIZE -P ${PIDFILE} $OPTIONS
     RETVAL=$?
     echo
-    [ $RETVAL -eq 0 ] && touch /var/lock/subsys/memcached
+    [ $RETVAL -eq 0 ] && touch /var/lock/subsys/memcached.${PORT}
     return $RETVAL
 }
  
 stop() {
-    echo -n $"Shutting down $desc ($prog): "
-    killproc $prog
+    echo -n $"Shutting down $desc"
+    killproc -p ${PIDFILE} $prog
     RETVAL=$?
     echo
-    [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/memcached
+    [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/memcached.${PORT}
     return $RETVAL
 }
  
@@ -55,10 +51,11 @@ restart() {
 }
  
 reload() {
-    echo -n $"Reloading $desc ($prog): "
-    killproc $prog -HUP
-    RETVAL=$?
-    echo
+    echo $"Reloading $desc does not support"
+#    echo -n $"Reloading $desc"
+#    killproc -p ${PIDFILE} $prog -HUP
+#    RETVAL=$?
+#    echo
     return $RETVAL
 }
  
