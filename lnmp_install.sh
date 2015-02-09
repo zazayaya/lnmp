@@ -35,6 +35,8 @@ http://xxtea.googlecode.com/files/xxtea.tar.gz
 http://pecl.php.net/get/redis-2.2.5.tgz
 #11、memcached
 http://www.memcached.org/files/memcached-1.4.20.tar.gz
+#11、libmcrypt
+http://softlayer.dl.sourceforge.net/sourceforge/mcrypt/libmcrypt-2.5.8.tar.gz
 "
 
 #install root
@@ -301,6 +303,15 @@ function installphp(){
         log_success_msg "install $(getfiles gd)" 
     fi
 
+    #libmcrypt
+    uncomfile $(getfiles libmcrypt)
+    makeinstall ./configure --prefix=${installroot}/libmcrypt  --disable-posix-threads --enable-dynamic-loading  
+    if [ $? -eq 0 ];then
+        makeinstall make
+        makeinstall make install
+        log_success_msg "install $(getfiles libmcrypt)"
+    fi
+
     #php
     uncomfile $(getfiles php)
     makeinstall ./configure --prefix=${installroot}/php --with-mysql \
@@ -310,7 +321,7 @@ function installphp(){
     --with-zlib --with-png-dir=${installroot}/png --with-gettext \
     --with-freetype-dir=${installroot}/freetype --with-iconv \
     --enable-sockets --enable-mbstring --with-xmlrpc \
-    --with-gmp --with-fpm-user=www-data --with-fpm-group=www-data \
+    --with-gmp --with-mcrypt=/${installroot}/libmcrypt --with-fpm-user=www-data --with-fpm-group=www-data \
     --with-xpm-dir=/usr/lib64/ --enable-opcache --enable-bcmath
 
     if [ $? -eq 0 ];then
@@ -409,7 +420,7 @@ ${installroot}/php/lib/php.ini
         log_success_msg "install php extension: redis"
 
         #check extension
-        extensions="curl bz2 gd gettext gmp iconv json libxml mbstring memcache mysql mysqli openssl pcre redis sockets xml xmlrpc xsl xxtea zlib OPcache bcmath"
+        extensions="curl bz2 gd gettext gmp iconv json libxml mbstring memcache mysql mysqli openssl pcre redis sockets xml xmlrpc xsl xxtea zlib OPcache bcmath mcrypt"
         for ext in ${extensions};do
             ${installroot}/php/sbin/php-fpm -m | grep ${ext} >/dev/null || log_failure_msg "php extension not exist: ${ext}"
         done
