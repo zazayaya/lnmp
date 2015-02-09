@@ -305,7 +305,7 @@ function installphp(){
 
     #libmcrypt
     uncomfile $(getfiles libmcrypt)
-    makeinstall ./configure --prefix=${installroot}/libmcrypt  --disable-posix-threads --enable-dynamic-loading  
+    makeinstall ./configure --prefix=${installroot}/libmcrypt
     if [ $? -eq 0 ];then
         makeinstall make
         makeinstall make install
