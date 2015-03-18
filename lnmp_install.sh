@@ -321,7 +321,8 @@ function installphp(){
     --with-zlib --with-png-dir=${installroot}/png --with-gettext \
     --with-freetype-dir=${installroot}/freetype --with-iconv \
     --enable-sockets --enable-mbstring --with-xmlrpc \
-    --with-gmp --with-mcrypt=/${installroot}/libmcrypt --with-fpm-user=www-data --with-fpm-group=www-data \
+    --with-gmp --with-mcrypt=/${installroot}/libmcrypt \
+    --with-fpm-user=www-data --with-fpm-group=www-data \
     --with-xpm-dir=/usr/lib64/ --enable-opcache --enable-bcmath
 
     if [ $? -eq 0 ];then
